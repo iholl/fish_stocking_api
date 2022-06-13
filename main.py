@@ -10,7 +10,7 @@ supabase: Client = create_client(url, key)
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Fish Stocking API, with the the fishy shit you need to know"}
+    return {"message": "Welcome to the Fish Stocking API, with the the fishy stocking shit you need to know"}
 
 @app.get("/ndow_stocking_records")
 def ndow_all_records():
