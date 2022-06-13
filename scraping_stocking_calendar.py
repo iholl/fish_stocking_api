@@ -1,12 +1,23 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import pandas as pd
+
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome("/usr/bin/chromedriver", options=options)
+
+# for github action connection
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+driver = webdriver.Chrome(service=chrome_service, options=options)
+
+# for local connection
+# driver = webdriver.Chrome("/usr/bin/chromedriver", options=options)
+
 driver.get("https://www.ndow.org/calendar/#")
 
 driver.find_element_by_xpath("// li[contains(text(),\'Fishing')]").click()
