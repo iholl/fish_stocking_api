@@ -6,7 +6,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome("/Users/ianholl/Documents/chromedriver/chromedriver", options=options)
+driver = webdriver.Chrome("/usr/bin/chromedriver", options=options)
 driver.get("https://www.ndow.org/calendar/#")
 
 driver.find_element_by_xpath("// li[contains(text(),\'Fishing')]").click()
