@@ -1,5 +1,4 @@
-
-name: database-deployment
+name: scraping-stocking-data
 
 on:
   push:
