@@ -13,7 +13,7 @@ ndow_table = supabase.table("ndow_fish_stocking").select("*").execute()
 current_data = pd.DataFrame(ndow_table.data).drop("id", axis=1)
 
 # if dataframe is empty build it up
-if current_data.empty() == True:  
+if current_data.empty:  
   for index, row in df.iterrows():
       configuration = {"date":row["date"], "water_name":row["water_name"], "total_stocked":row["total_stocked"], "species":row["species"]}
       data = supabase.table("ndow_fish_stocking").insert(configuration).execute()
