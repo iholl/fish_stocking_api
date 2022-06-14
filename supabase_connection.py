@@ -10,11 +10,14 @@ supabase: Client = create_client(url, key)
 df = pd.read_csv("data.csv", index_col=0)
 
 ndow_table = supabase.table("ndow_fish_stocking").select("*").execute()
+current_data = pd.DataFrame(ndow_table.data).drop("id", axis=1)
 
 # if dataframe is empty build it up
-try:  
-  current_data = pd.DataFrame(ndow_table.data).drop("id", axis=1)
-
+if current_data.empty():  
+  for index, row in df.iterrows():
+      configuration = {"date":row["date"], "water_name":row["water_name"], "total_stocked":row["total_stocked"], "species":row["species"]}
+      data = supabase.table("ndow_fish_stocking").insert(configuration).execute()
+else:
   if df.equals(current_data):
     print("WE GOOD")
   else:
@@ -24,13 +27,6 @@ try:
       for index, row in df.iterrows():
         configuration = {"date":row["date"], "water_name":row["water_name"], "total_stocked":row["total_stocked"], "species":row["species"]}
         data = supabase.table("ndow_fish_stocking").insert(configuration).execute()
-
-except:
-  current_data = pd.DataFrame(ndow_table.data)
-
-  for index, row in df.iterrows():
-      configuration = {"date":row["date"], "water_name":row["water_name"], "total_stocked":row["total_stocked"], "species":row["species"]}
-      data = supabase.table("ndow_fish_stocking").insert(configuration).execute()
 
 ndow_table = supabase.table("ndow_fish_stocking").select("*").execute()
 print(ndow_table)
