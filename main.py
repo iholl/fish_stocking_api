@@ -16,3 +16,8 @@ async def root():
 def ndow_all_records():
     all_records = supabase.table("ndow_fish_stocking").select('*').execute()
     return all_records
+
+@app.get("/nevada_stocking")
+def ndow_all_records():
+    all_records = supabase.table("nevada_stocking").select('*').execute()
+    return all_records
